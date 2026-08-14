@@ -1,1 +1,146 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Strength"><meta name="theme-color" content="#0e1116"><title>Strength v0.2.0</title><link rel="manifest" href="manifest.json"><link rel="stylesheet" href="styles.css"></head><body><header><div><b>STRENGTH</b><small>v0.2.0</small></div><span id="status">READY</span></header><div class="progress"><div id="bar"></div></div><main><nav><button data-tab="home" class="active">Home</button><button data-tab="train">Train</button><button data-tab="history">History</button><button data-tab="setup">Setup</button></nav><section id="home" class="pane active"></section><section id="train" class="pane"></section><section id="history" class="pane"></section><section id="setup" class="pane"></section></main><div id="toast"></div><script src="app.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#0b0f14" />
+<title>Strength & Conditioning v3</title>
+<style>
+:root{--bg:#0b0f14;--panel:#121821;--panel2:#18212c;--text:#f4f7fb;--muted:#9facbc;--line:#283444;--accent:#7ee787;--warn:#f2cc60;--danger:#ff7b72;--blue:#79c0ff;--shadow:0 10px 30px rgba(0,0,0,.28)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}button,input,select{font:inherit}.app{max-width:760px;margin:auto;min-height:100vh;padding:calc(16px + env(safe-area-inset-top)) 14px calc(92px + env(safe-area-inset-bottom))}.top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin:2px 2px 18px}.title{font-size:23px;font-weight:800}.sub{color:var(--muted);font-size:13px;margin-top:3px}.badge{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:7px 10px;color:var(--accent);font-size:12px;font-weight:700;white-space:nowrap}.section-title{font-size:16px;font-weight:800;margin:22px 2px 10px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.card{background:linear-gradient(180deg,var(--panel),#10161e);border:1px solid var(--line);border-radius:16px;padding:15px;box-shadow:var(--shadow)}.select-card{cursor:pointer;min-height:116px;display:flex;flex-direction:column;justify-content:space-between}.select-card:active{transform:scale(.99)}.icon{font-size:22px}.card h3{font-size:15px;margin:10px 0 4px}.card p{font-size:12px;color:var(--muted);margin:0;line-height:1.35}.wide{grid-column:1/-1}.row{display:flex;gap:10px;align-items:center}.between{justify-content:space-between}.btn{border:0;border-radius:12px;padding:11px 14px;background:var(--panel2);color:var(--text);font-weight:750;cursor:pointer}.btn.primary{background:var(--accent);color:#07120a}.btn.blue{background:var(--blue);color:#071018}.btn.warn{background:var(--warn);color:#181302}.btn.danger{background:#3a1d21;color:#ffb4ad}.btn.ghost{border:1px solid var(--line);background:transparent}.btn.small{padding:8px 10px;font-size:12px}.btn:disabled{opacity:.4;cursor:not-allowed}.exercise{margin-bottom:10px}.exercise-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.exercise-name{font-weight:800;font-size:15px}.meta{color:var(--muted);font-size:12px;margin-top:4px}.weight{font-size:20px;font-weight:850;margin-top:8px}.pill{font-size:11px;padding:5px 8px;border-radius:999px;background:var(--panel2);border:1px solid var(--line);color:var(--muted)}.sets{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:11px}.setbtn{padding:9px 0;border-radius:9px;background:var(--panel2);border:1px solid var(--line);color:var(--text);font-size:12px}.setbtn.done{background:#18351f;border-color:#2f6f3a;color:#b7f5c0}.timer{font-variant-numeric:tabular-nums;font-size:50px;font-weight:850;letter-spacing:-1px;text-align:center;margin:8px 0 4px}.timer-label{text-align:center;color:var(--muted);font-size:12px}.timer-controls{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:13px}.field{margin:10px 0}.field label{display:block;color:var(--muted);font-size:12px;margin-bottom:5px}.input,select{width:100%;border:1px solid var(--line);background:#0d131b;color:var(--text);border-radius:11px;padding:11px 12px;outline:none}.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.three{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.program-list{display:flex;flex-direction:column;gap:10px}.program-row{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:14px;cursor:pointer}.program-row strong{display:block;font-size:15px}.program-row span{display:block;color:var(--muted);font-size:12px;margin-top:4px;line-height:1.4}.nav{position:fixed;bottom:0;left:0;right:0;background:rgba(11,15,20,.94);backdrop-filter:blur(16px);border-top:1px solid var(--line);padding:8px max(10px,env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left));display:flex;justify-content:center;z-index:30}.nav-inner{max-width:760px;width:100%;display:grid;grid-template-columns:repeat(4,1fr);gap:5px}.nav button{background:transparent;border:0;color:var(--muted);padding:7px 2px;font-size:11px}.nav button.active{color:var(--accent);font-weight:800}.nav .nicon{display:block;font-size:19px;margin-bottom:2px}.screen{display:none}.screen.active{display:block}.back{display:inline-flex;align-items:center;gap:5px;color:var(--blue);background:none;border:0;padding:0;margin:0 0 12px;font-weight:700}.modal{position:fixed;inset:0;background:rgba(0,0,0,.68);display:none;align-items:flex-end;justify-content:center;z-index:50}.modal.show{display:flex}.sheet{width:100%;max-width:760px;background:#111923;border:1px solid var(--line);border-radius:22px 22px 0 0;padding:20px 16px calc(18px + env(safe-area-inset-bottom));max-height:82vh;overflow:auto}.sheet h2{margin:0 0 14px;font-size:19px}.plate-result{background:#0d131b;border:1px solid var(--line);border-radius:12px;padding:14px;margin-top:10px;font-size:14px;line-height:1.7}.history-item{padding:13px 0;border-bottom:1px solid var(--line)}.history-item:last-child{border-bottom:0}.history-item strong{display:block}.history-item span{color:var(--muted);font-size:12px}.empty{color:var(--muted);text-align:center;padding:34px 10px}.notice{background:#122419;border:1px solid #255d31;color:#c9f7d0;padding:11px 12px;border-radius:12px;font-size:12px;line-height:1.4;margin:10px 0}.today-chip{font-size:12px;color:var(--muted);margin:8px 2px 0}.progress{height:7px;background:#0d131b;border-radius:99px;overflow:hidden;margin-top:10px}.progress span{display:block;height:100%;background:var(--accent);width:0%}.hidden{display:none!important}@media(min-width:650px){.grid{grid-template-columns:repeat(3,1fr)}.wide{grid-column:1/-1}.app{padding-left:20px;padding-right:20px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top"><div><div class="title">Strength & Conditioning</div><div class="sub">Train what today allows.</div></div><div class="badge">v3</div></div>
+
+  <section id="home" class="screen active">
+    <div class="section-title">Choose today's training</div>
+    <div class="grid" id="homeCards"></div>
+    <div class="section-title">Today's log</div>
+    <div id="todayLog" class="card"><div class="empty">Nothing logged yet today.</div></div>
+  </section>
+
+  <section id="programs" class="screen">
+    <div class="section-title">All programs</div>
+    <div class="program-list" id="programList"></div>
+  </section>
+
+  <section id="workout" class="screen">
+    <button class="back" onclick="goBack()">‹ Back</button>
+    <div class="row between"><div><div class="section-title" id="workoutTitle" style="margin:0"></div><div class="today-chip" id="workoutSubtitle"></div></div><button class="btn small ghost" onclick="finishWorkout()">Finish</button></div>
+    <div id="workoutBody" style="margin-top:14px"></div>
+  </section>
+
+  <section id="history" class="screen">
+    <div class="section-title">Training history</div>
+    <div id="historyList" class="card"></div>
+  </section>
+
+  <section id="setup" class="screen">
+    <div class="section-title">Setup</div>
+    <div class="card">
+      <div class="field"><label>Default bar weight (lb)</label><input id="barWeight" class="input" type="number" step="5" /></div>
+      <div class="field"><label>Default rest target (minutes)</label><input id="restMinutes" class="input" type="number" step="0.5" min="0.5" /></div>
+      <div class="field"><label>Available plates (lb, comma separated)</label><input id="platesInput" class="input" value="45,35,25,10,5,2.5" /></div>
+      <button class="btn primary" onclick="saveSettings()">Save settings</button>
+      <div class="notice">Your data is stored on this device in the browser. Weight changes, settings and workout history remain after closing the app.</div>
+    </div>
+  </section>
+</div>
+
+<nav class="nav"><div class="nav-inner">
+<button data-tab="home" class="active" onclick="showScreen('home')"><span class="nicon">⌂</span>Today</button>
+<button data-tab="programs" onclick="showScreen('programs')"><span class="nicon">☷</span>Programs</button>
+<button data-tab="history" onclick="showScreen('history')"><span class="nicon">◷</span>History</button>
+<button data-tab="setup" onclick="showScreen('setup')"><span class="nicon">⚙</span>Setup</button>
+</div></nav>
+
+<div class="modal" id="weightModal"><div class="sheet">
+  <h2 id="weightTitle">Edit weight</h2>
+  <div class="field"><label>Working weight (lb)</label><input class="input" id="weightInput" type="number" step="2.5" /></div>
+  <div id="plateBox" class="hidden"><button class="btn blue" style="width:100%" onclick="calculatePlates()">Calculate plates</button><div id="plateResult" class="plate-result hidden"></div></div>
+  <div class="row" style="margin-top:14px"><button class="btn primary" style="flex:1" onclick="saveWeight()">Save</button><button class="btn ghost" onclick="closeModal('weightModal')">Cancel</button></div>
+</div></div>
+
+<script>
+const basePrograms = {
+  legs:{name:'Strength — Legs & Shoulders',short:'Legs & Shoulders',icon:'🏋️',desc:'Squat, press, hinge and accessories',kind:'strength', exercises:[
+    {id:'squat',name:'Back Squat',sets:5,reps:'5',weight:45,barbell:true,progression:'+5 lb after successful 5×5'},
+    {id:'ohp',name:'Overhead Press',sets:5,reps:'5',weight:45,barbell:true,progression:'+5 lb after successful 5×5'},
+    {id:'rdl',name:'Romanian Deadlift',sets:3,reps:'6–8',weight:65,barbell:true,progression:'Increase after 3×8'},
+    {id:'legcurl',name:'Leg Curl',sets:3,reps:'8–12',weight:50,progression:'Increase after top of range'},
+    {id:'lateral',name:'Lateral Raise',sets:3,reps:'10–15',weight:15,progression:'Increase after top of range'},
+    {id:'calf',name:'Calf Raise',sets:3,reps:'10–15',weight:45,progression:'Increase after top of range'}]},
+  chest:{name:'Strength — Chest & Triceps',short:'Chest & Triceps',icon:'💪',desc:'Bench, incline press and triceps',kind:'strength', exercises:[
+    {id:'bench',name:'Barbell Bench Press',sets:5,reps:'5',weight:45,barbell:true,progression:'+5 lb after successful 5×5'},
+    {id:'incline',name:'Incline Dumbbell Press',sets:3,reps:'6–10',weight:25,progression:'Increase after 3×10'},
+    {id:'pecdeck',name:'Chest Fly / Pec Deck',sets:3,reps:'10–15',weight:50,progression:'Increase after top of range'},
+    {id:'pushdown',name:'Triceps Pushdown',sets:3,reps:'8–12',weight:60,progression:'Increase after top of range'},
+    {id:'ohtri',name:'Overhead Triceps Extension',sets:3,reps:'10–15',weight:30,progression:'Increase after top of range'}]},
+  back:{name:'Strength — Back & Biceps',short:'Back & Biceps',icon:'🦾',desc:'Rows, deadlift, pulldown and curls',kind:'strength', exercises:[
+    {id:'row',name:'Bent-over Barbell Row',sets:5,reps:'5',weight:95,barbell:true,progression:'+5 lb after successful 5×5'},
+    {id:'deadlift',name:'Deadlift',sets:1,reps:'5',weight:95,barbell:true,progression:'+5 lb after successful set'},
+    {id:'pulldown',name:'Lat Pulldown',sets:3,reps:'6–10',weight:90,progression:'Increase after top of range'},
+    {id:'seatedrow',name:'Seated Cable Row',sets:3,reps:'8–12',weight:60,progression:'Increase after top of range'},
+    {id:'facepull',name:'Face Pull',sets:3,reps:'10–15',weight:20,progression:'Increase after top of range'},
+    {id:'ezcurl',name:'EZ-Bar Curl',sets:3,reps:'8–12',weight:40,barbell:false,progression:'Increase after top of range'},
+    {id:'hammercurl',name:'Hammer Curl',sets:2,reps:'10–15',weight:25,progression:'Increase after top of range'}]},
+  mobility:{name:'Mobility & Stretching',short:'Mobility',icon:'🧘',desc:'Timed stretches with countdown + alert',kind:'timed', exercises:[
+    {id:'calfstretch',name:'Calf / Achilles Stretch',seconds:120,note:'60 sec each side'},
+    {id:'hipflexor',name:'Hip Flexor Stretch',seconds:120,note:'60 sec each side'},
+    {id:'hamstring',name:'Hamstring Stretch',seconds:120,note:'60 sec each side'},
+    {id:'quad',name:'Quad Stretch',seconds:120,note:'60 sec each side'},
+    {id:'thoracic',name:'Thoracic Rotation',seconds:120,note:'60 sec each side'},
+    {id:'shoulder',name:'Shoulder / Pec Opener',seconds:120,note:'60 sec each side'}]},
+  grip:{name:'Grip — Farmer’s Carries',short:'Farmer’s Carries',icon:'🚶',desc:'Dumbbells + walking circuits of the gym',kind:'grip'},
+  cardio:{name:'Cardio',short:'Cardio',icon:'❤️',desc:'Rowing, rucking/tabbing or swimming',kind:'cardio'}
+};
+
+let state = JSON.parse(localStorage.getItem('sc_v3_state')||'null') || {weights:{},history:[],settings:{bar:45,rest:3,plates:[45,35,25,10,5,2.5]}};
+let activeProgram=null, currentEdit=null, timers={}, restTimer=null, restSeconds=0, restTarget=180, restPinged=false;
+
+function persist(){localStorage.setItem('sc_v3_state',JSON.stringify(state));}
+function fmt(sec){sec=Math.max(0,Math.floor(sec));return String(Math.floor(sec/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0');}
+function beep(){try{const C=window.AudioContext||window.webkitAudioContext;const c=new C();const o=c.createOscillator();const g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=880;g.gain.value=.12;o.start();setTimeout(()=>{o.stop();c.close()},350)}catch(e){} if(navigator.vibrate)navigator.vibrate([180,80,180]);}
+function todayKey(){return new Date().toLocaleDateString('en-CA');}
+function getWeight(ex){return state.weights[ex.id] ?? ex.weight ?? 0;}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));if(id==='history')renderHistory();if(id==='home')renderToday();window.scrollTo(0,0);}
+function goBack(){showScreen('programs');}
+function renderHome(){const keys=['legs','chest','back','cardio','mobility','grip'];document.getElementById('homeCards').innerHTML=keys.map(k=>{const p=basePrograms[k];return `<div class="card select-card" onclick="startProgram('${k}')"><div class="icon">${p.icon}</div><div><h3>${p.short}</h3><p>${p.desc}</p></div></div>`}).join('');renderToday();}
+function renderPrograms(){document.getElementById('programList').innerHTML=Object.entries(basePrograms).map(([k,p])=>`<div class="program-row" onclick="startProgram('${k}')"><strong>${p.icon} ${p.name}</strong><span>${programSummary(p)}</span></div>`).join('');}
+function programSummary(p){if(p.exercises)return p.exercises.map(x=>x.name).join(' · ');if(p.kind==='cardio')return 'Rowing · Rucking/Tabbing · Swimming';return 'Farmer’s carries using dumbbells · timed walking circuits';}
+function startProgram(key){activeProgram=key;const p=basePrograms[key];document.getElementById('workoutTitle').textContent=p.name;document.getElementById('workoutSubtitle').textContent='Choose any exercise order. Adjust weights as needed.';renderWorkout();showScreen('workout');}
+function renderWorkout(){const p=basePrograms[activeProgram], body=document.getElementById('workoutBody');if(p.kind==='strength')body.innerHTML=renderRestTimer()+p.exercises.map(renderStrengthExercise).join('');else if(p.kind==='timed')body.innerHTML=`<div class="notice">Countdown timers use minutes and ping/vibrate when the prescribed time is complete.</div>`+p.exercises.map(renderTimedExercise).join('');else if(p.kind==='grip')body.innerHTML=renderGrip();else body.innerHTML=renderCardio();}
+function renderRestTimer(){return `<div class="card" style="margin-bottom:12px"><div class="timer-label">REST — counts up</div><div class="timer" id="restDisplay">${fmt(restSeconds)}</div><div class="timer-label">Alert at <span id="restTargetText">${state.settings.rest} min</span> · timer continues after alert</div><div class="timer-controls"><button class="btn primary" onclick="startRest()">Start</button><button class="btn ghost" onclick="pauseRest()">Pause</button><button class="btn ghost" onclick="resetRest()">Reset</button></div></div>`;}
+function startRest(){if(restTimer)return;restTarget=Math.round(state.settings.rest*60);restPinged=false;restTimer=setInterval(()=>{restSeconds++;const d=document.getElementById('restDisplay');if(d)d.textContent=fmt(restSeconds);if(restSeconds>=restTarget&&!restPinged){restPinged=true;beep();}},1000)}
+function pauseRest(){clearInterval(restTimer);restTimer=null}function resetRest(){pauseRest();restSeconds=0;restPinged=false;const d=document.getElementById('restDisplay');if(d)d.textContent='00:00'}
+function renderStrengthExercise(ex){let sets='';for(let i=1;i<=ex.sets;i++)sets+=`<button class="setbtn" onclick="this.classList.toggle('done')">${i}</button>`;return `<div class="card exercise"><div class="exercise-head"><div><div class="exercise-name">${ex.name}</div><div class="meta">${ex.sets} × ${ex.reps} · ${ex.progression}</div></div><span class="pill">editable</span></div><div class="row between"><div class="weight">${getWeight(ex)} lb</div><button class="btn small ghost" onclick="openWeight('${ex.id}',${!!ex.barbell})">Edit${ex.barbell?' / Plates':''}</button></div><div class="sets">${sets}</div></div>`}
+function renderTimedExercise(ex){const mins=(ex.seconds/60).toFixed(ex.seconds%60?1:0);return `<div class="card exercise"><div class="exercise-head"><div><div class="exercise-name">${ex.name}</div><div class="meta">${ex.note||''} · ${mins} min</div></div><span class="pill">countdown</span></div><div class="timer" style="font-size:38px" id="timer-${ex.id}">${fmt(ex.seconds)}</div><div class="timer-controls"><button class="btn primary" onclick="startCountdown('${ex.id}',${ex.seconds})">Start</button><button class="btn ghost" onclick="pauseCountdown('${ex.id}')">Pause</button><button class="btn ghost" onclick="resetCountdown('${ex.id}',${ex.seconds})">Reset</button></div></div>`}
+function startCountdown(id,total){if(timers[id]?.interval)return;let remain=timers[id]?.remain ?? total;if(remain<=0)remain=total;timers[id]={remain,interval:setInterval(()=>{timers[id].remain--;const d=document.getElementById('timer-'+id);if(d)d.textContent=fmt(timers[id].remain);if(timers[id].remain<=0){clearInterval(timers[id].interval);timers[id].interval=null;beep();}},1000)}}
+function pauseCountdown(id){if(timers[id]?.interval){clearInterval(timers[id].interval);timers[id].interval=null}}
+function resetCountdown(id,total){pauseCountdown(id);timers[id]={remain:total,interval:null};const d=document.getElementById('timer-'+id);if(d)d.textContent=fmt(total)}
+function renderGrip(){const w=state.weights.farmers ?? 45;return `<div class="card"><div class="exercise-head"><div><div class="exercise-name">Farmer’s Carries</div><div class="meta">Walk circuits of the gym with dumbbells</div></div><span class="pill">grip</span></div><div class="row between"><div class="weight">${w} lb each</div><button class="btn small ghost" onclick="openWeight('farmers',false,true)">Edit</button></div><div class="two"><div class="field"><label>Target time (minutes)</label><input id="gripMins" class="input" type="number" value="10" min="1"></div><div class="field"><label>Circuits (optional)</label><input id="gripCircuits" class="input" type="number" placeholder="e.g. 5"></div></div><div class="timer" id="gripTimer">10:00</div><div class="timer-controls"><button class="btn primary" onclick="startCustomCountdown('gripTimer','gripMins','grip')">Start</button><button class="btn ghost" onclick="pauseCountdown('grip')">Pause</button><button class="btn ghost" onclick="resetCustomCountdown('gripTimer','gripMins','grip')">Reset</button></div><button class="btn blue" style="width:100%;margin-top:14px" onclick="logGrip()">Log Farmer’s Carries</button></div>`}
+function startCustomCountdown(display,input,id){const mins=parseFloat(document.getElementById(input).value)||1;startCountdownGeneric(id,Math.round(mins*60),display)}
+function startCountdownGeneric(id,total,display){if(timers[id]?.interval)return;let remain=timers[id]?.remain ?? total;if(remain<=0)remain=total;timers[id]={remain,interval:setInterval(()=>{timers[id].remain--;const d=document.getElementById(display);if(d)d.textContent=fmt(timers[id].remain);if(timers[id].remain<=0){clearInterval(timers[id].interval);timers[id].interval=null;beep();}},1000)}}
+function resetCustomCountdown(display,input,id){pauseCountdown(id);const mins=parseFloat(document.getElementById(input).value)||1;timers[id]={remain:Math.round(mins*60),interval:null};document.getElementById(display).textContent=fmt(Math.round(mins*60))}
+function renderCardio(){return `<div class="card"><div class="field"><label>Cardio mode</label><select id="cardioMode" onchange="cardioFields()"><option>Rucking / Tabbing</option><option>Rowing</option><option>Swimming</option></select></div><div class="field"><label>Target duration (minutes)</label><input id="cardioMins" class="input" type="number" value="40" min="1" oninput="document.getElementById('cardioTimer').textContent=fmt((parseFloat(this.value)||0)*60)"></div><div id="cardioExtra"></div><div class="timer" id="cardioTimer">40:00</div><div class="timer-label">Countdown + alert at target</div><div class="timer-controls"><button class="btn primary" onclick="startCustomCountdown('cardioTimer','cardioMins','cardio')">Start</button><button class="btn ghost" onclick="pauseCountdown('cardio')">Pause</button><button class="btn ghost" onclick="resetCustomCountdown('cardioTimer','cardioMins','cardio')">Reset</button></div><button class="btn blue" style="width:100%;margin-top:14px" onclick="logCardio()">Log Cardio Session</button></div>`}
+function cardioFields(){const m=document.getElementById('cardioMode').value,e=document.getElementById('cardioExtra');if(m.startsWith('Rucking'))e.innerHTML=`<div class="two"><div class="field"><label>Carried weight (lb)</label><input id="ruckWeight" class="input" type="number" value="20"></div><div class="field"><label>Distance (optional)</label><input id="distance" class="input" type="number" step="0.1" placeholder="miles"></div><div class="field"><label>Speed/pace (optional)</label><input id="pace" class="input" placeholder="e.g. 3.2 mph"></div><div class="field"><label>Incline (optional)</label><input id="incline" class="input" placeholder="e.g. 4%"></div></div>`;else if(m==='Rowing')e.innerHTML=`<div class="two"><div class="field"><label>Distance (optional)</label><input id="distance" class="input" placeholder="meters"></div><div class="field"><label>Avg pace (optional)</label><input id="pace" class="input" placeholder="/500m"></div></div>`;else e.innerHTML=`<div class="two"><div class="field"><label>Distance (optional)</label><input id="distance" class="input" placeholder="yards / meters"></div><div class="field"><label>Laps (optional)</label><input id="laps" class="input" type="number"></div></div>`}
+function logCardio(){const mode=document.getElementById('cardioMode').value,mins=parseFloat(document.getElementById('cardioMins').value)||0;let details=`${mins} min`;if(mode.startsWith('Rucking')){const w=document.getElementById('ruckWeight').value;details+=` · ${w} lb`;const d=document.getElementById('distance').value;if(d)details+=` · ${d} mi`;const p=document.getElementById('pace').value;if(p)details+=` · ${p}`;const i=document.getElementById('incline').value;if(i)details+=` · ${i} incline`;}else{const d=document.getElementById('distance')?.value;if(d)details+=` · ${d}`;}addHistory(mode,details);beep();alert('Cardio session logged.');}
+function logGrip(){const mins=parseFloat(document.getElementById('gripMins').value)||0,c=document.getElementById('gripCircuits').value,w=state.weights.farmers??45;addHistory('Farmer’s Carries',`${mins} min · ${w} lb each${c?` · ${c} circuits`:''}`);beep();alert('Farmer’s carries logged.');}
+function finishWorkout(){const p=basePrograms[activeProgram];if(!p)return;if(p.kind==='strength')addHistory(p.short,'Strength session completed');else if(p.kind==='timed')addHistory(p.short,'Mobility session completed');showScreen('home');}
+function addHistory(name,details){state.history.unshift({date:new Date().toISOString(),name,details});persist();renderToday();}
+function renderToday(){const el=document.getElementById('todayLog');const todays=state.history.filter(h=>h.date.slice(0,10)===new Date().toISOString().slice(0,10));el.innerHTML=todays.length?todays.map(h=>`<div class="history-item"><strong>${h.name}</strong><span>${h.details}</span></div>`).join(''):'<div class="empty">Nothing logged yet today.</div>'}
+function renderHistory(){const el=document.getElementById('historyList');el.innerHTML=state.history.length?state.history.map(h=>`<div class="history-item"><strong>${h.name}</strong><span>${new Date(h.date).toLocaleDateString()} · ${h.details}</span></div>`).join(''):'<div class="empty">No workouts logged yet.</div>'}
+function openWeight(id,barbell=false,farmers=false){currentEdit={id,barbell,farmers};let ex=null;Object.values(basePrograms).forEach(p=>(p.exercises||[]).forEach(x=>{if(x.id===id)ex=x}));document.getElementById('weightTitle').textContent=farmers?'Edit Farmer’s Carry Weight':`Edit ${ex?.name||'weight'}`;document.getElementById('weightInput').value=farmers?(state.weights.farmers??45):(state.weights[id]??ex?.weight??0);document.getElementById('plateBox').classList.toggle('hidden',!barbell);document.getElementById('plateResult').classList.add('hidden');document.getElementById('weightModal').classList.add('show')}
+function saveWeight(){const v=parseFloat(document.getElementById('weightInput').value);if(!isNaN(v)){state.weights[currentEdit.id]=v;persist();renderWorkout()}closeModal('weightModal')}
+function closeModal(id){document.getElementById(id).classList.remove('show')}
+function calculatePlates(){const total=parseFloat(document.getElementById('weightInput').value),bar=state.settings.bar||45,plates=[...(state.settings.plates||[])].sort((a,b)=>b-a);let side=(total-bar)/2;if(side<0){document.getElementById('plateResult').textContent='Target is lighter than the configured bar.';document.getElementById('plateResult').classList.remove('hidden');return}const chosen=[];let remain=side;for(const p of plates){while(remain+1e-6>=p){chosen.push(p);remain-=p}}const r=document.getElementById('plateResult');r.innerHTML=remain<.01?`<strong>${total} lb total</strong><br>${bar} lb bar + <strong>${side} lb per side</strong><br>Each side: ${chosen.length?chosen.join(' + ')+' lb':'no plates'}`:`Exact load cannot be made with your configured plates.<br>Closest without exceeding: <strong>${bar+2*(side-remain)} lb</strong>`;r.classList.remove('hidden')}
+function saveSettings(){const b=parseFloat(document.getElementById('barWeight').value)||45,r=parseFloat(document.getElementById('restMinutes').value)||3,p=document.getElementById('platesInput').value.split(',').map(x=>parseFloat(x.trim())).filter(x=>!isNaN(x)&&x>0);state.settings={bar:b,rest:r,plates:p};persist();alert('Settings saved.');}
+function loadSettings(){document.getElementById('barWeight').value=state.settings.bar;document.getElementById('restMinutes').value=state.settings.rest;document.getElementById('platesInput').value=(state.settings.plates||[]).join(',');}
+
+document.getElementById('weightModal').addEventListener('click',e=>{if(e.target.id==='weightModal')closeModal('weightModal')});
+renderHome();renderPrograms();loadSettings();cardioFields=cardioFields; 
+</script>
+</body>
+</html>
